@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FXR Trader</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: #0b0f14;
+      color: #fff;
+      font-family: system-ui, sans-serif;
+      text-align: center;
+      padding: 24px;
+    }
+    a {
+      background: #229ed9;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <p id="msg">Loading…</p>
+  <a id="btn" href="#" style="display:none">Open Channel</a>
+
+  <script>
+    var CHANNEL = "https://t.me/fxrtrader";
+    var tg = window.Telegram && window.Telegram.WebApp;
+    var msg = document.getElementById("msg");
+    var btn = document.getElementById("btn");
+
+    // initData is only filled when launched as a Telegram Mini App
+    if (tg && tg.initData) {
+      tg.ready();
+      msg.textContent = "Redirecting you to the channel…";
+      btn.style.display = "inline-block";
+      btn.onclick = function (e) { e.preventDefault(); go(); };
+      go();
+    } else {
+      msg.textContent = "This page can only be opened inside Telegram.";
+    }
+
+    function go() {
+      tg.openTelegramLink(CHANNEL);
+      setTimeout(function () { tg.close(); }, 300);
+    }
+  </script>
+</body>
+</html>
