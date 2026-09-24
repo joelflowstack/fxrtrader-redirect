@@ -6,54 +6,92 @@
   <title>FXR Trader</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    body {
+    * { box-sizing: border-box; }
+    html, body {
       margin: 0;
-      min-height: 100vh;
+      height: 100%;
+      background: radial-gradient(circle at 50% 0%, #16324a 0%, #0b0f14 60%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #fff;
+    }
+    .wrap {
+      min-height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      background: #0b0f14;
-      color: #fff;
-      font-family: system-ui, sans-serif;
+      padding: 32px 24px;
       text-align: center;
-      padding: 24px;
     }
-    a {
+    .logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #229ed9, #0d5c8f);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(34, 158, 217, 0.35);
+    }
+    h1 {
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+    p.sub {
+      color: #9fb3c2;
+      font-size: 15px;
+      max-width: 320px;
+      line-height: 1.5;
+      margin: 0 0 32px;
+    }
+    .btn {
       background: #229ed9;
       color: #fff;
-      padding: 12px 28px;
+      border: none;
+      padding: 14px 36px;
       border-radius: 999px;
-      text-decoration: none;
+      font-size: 16px;
       font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(34, 158, 217, 0.4);
+    }
+    .btn:active { transform: scale(0.97); }
+    .blocked {
+      color: #9fb3c2;
+      font-size: 15px;
+      max-width: 300px;
+      line-height: 1.6;
     }
   </style>
 </head>
 <body>
-  <p id="msg">Loading…</p>
-  <a id="btn" href="#" style="display:none">Open Channel</a>
+  <div class="wrap" id="app">
+    <p class="blocked">Loading…</p>
+  </div>
 
   <script>
     var CHANNEL = "https://t.me/fxrtrader";
     var tg = window.Telegram && window.Telegram.WebApp;
-    var msg = document.getElementById("msg");
-    var btn = document.getElementById("btn");
+    var app = document.getElementById("app");
 
-    // initData is only filled when launched as a Telegram Mini App
     if (tg && tg.initData) {
       tg.ready();
-      msg.textContent = "Redirecting you to the channel…";
-      btn.style.display = "inline-block";
-      btn.onclick = function (e) { e.preventDefault(); go(); };
-      go();
-    } else {
-      msg.textContent = "This page can only be opened inside Telegram.";
-    }
+      tg.expand();
+      app.innerHTML =
+        '<div class="logo">FX</div>' +
+        '<h1>FXR Trader</h1>' +
+        '<p class="sub">Tap below to join the channel for live signals and updates.</p>' +
+        '<button class="btn" id="joinBtn">Go to Channel</button>';
 
-    function go() {
-      tg.openTelegramLink(CHANNEL);
-      setTimeout(function () { tg.close(); }, 300);
+      document.getElementById("joinBtn").addEventListener("click", function () {
+        tg.openTelegramLink(CHANNEL);
+      });
+    } else {
+      app.innerHTML =
+        '<p class="blocked">This page can only be opened inside Telegram.</p>';
     }
   </script>
 </body>
