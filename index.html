@@ -10,7 +10,9 @@
     html, body {
       margin: 0;
       height: 100%;
-      background: radial-gradient(circle at 50% 0%, #16324a 0%, #0b0f14 60%);
+      background:
+        radial-gradient(circle at 50% -10%, #1c3d57 0%, #0b0f14 55%),
+        #0b0f14;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       color: #fff;
     }
@@ -20,45 +22,114 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 32px 24px;
+      padding: 40px 24px;
       text-align: center;
     }
+    .card {
+      width: 100%;
+      max-width: 380px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 32px 24px;
+      backdrop-filter: blur(8px);
+    }
     .logo {
-      width: 72px;
-      height: 72px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #229ed9, #0d5c8f);
+      width: 76px;
+      height: 76px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, #34b3f1, #0d5c8f);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      box-shadow: 0 8px 24px rgba(34, 158, 217, 0.35);
+      font-size: 30px;
+      font-weight: 800;
+      margin: 0 auto 18px;
+      box-shadow: 0 10px 28px rgba(34, 158, 217, 0.4);
+      letter-spacing: -1px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34, 158, 217, 0.12);
+      color: #6cc9f5;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3ddc84;
     }
     h1 {
-      font-size: 22px;
-      margin: 0 0 8px;
+      font-size: 21px;
+      margin: 0 0 6px;
+      font-weight: 700;
     }
     p.sub {
       color: #9fb3c2;
-      font-size: 15px;
-      max-width: 320px;
+      font-size: 14px;
       line-height: 1.5;
-      margin: 0 0 32px;
+      margin: 0 0 22px;
+    }
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      margin-bottom: 22px;
+    }
+    .stat { text-align: center; }
+    .stat .num { font-size: 17px; font-weight: 700; }
+    .stat .lbl { font-size: 11px; color: #7f97a6; }
+    .features {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 26px;
+    }
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: #cfe0ea;
+    }
+    .feature .tick {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(61, 220, 132, 0.15);
+      color: #3ddc84;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
     }
     .btn {
-      background: #229ed9;
+      width: 100%;
+      background: linear-gradient(135deg, #34b3f1, #1a86c4);
       color: #fff;
       border: none;
-      padding: 14px 36px;
-      border-radius: 999px;
-      font-size: 16px;
-      font-weight: 600;
+      padding: 15px 0;
+      border-radius: 14px;
+      font-size: 15.5px;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(34, 158, 217, 0.4);
+      box-shadow: 0 8px 22px rgba(34, 158, 217, 0.4);
     }
-    .btn:active { transform: scale(0.97); }
+    .btn:active { transform: scale(0.98); }
+    .footnote {
+      margin-top: 14px;
+      font-size: 11.5px;
+      color: #64798a;
+    }
     .blocked {
       color: #9fb3c2;
       font-size: 15px;
@@ -81,10 +152,24 @@
       tg.ready();
       tg.expand();
       app.innerHTML =
-        '<div class="logo">FX</div>' +
-        '<h1>FXR Trader</h1>' +
-        '<p class="sub">Tap below to join the channel for live signals and updates.</p>' +
-        '<button class="btn" id="joinBtn">Go to Channel</button>';
+        '<div class="card">' +
+          '<div class="logo">FX</div>' +
+          '<div class="badge"><span class="dot"></span>Channel Active</div>' +
+          '<h1>FXR Trader</h1>' +
+          '<p class="sub">Live forex signals, market analysis, and trade setups delivered daily.</p>' +
+          '<div class="stats">' +
+            '<div class="stat"><div class="num">Daily</div><div class="lbl">Signals</div></div>' +
+            '<div class="stat"><div class="num">Live</div><div class="lbl">Analysis</div></div>' +
+            '<div class="stat"><div class="num">Free</div><div class="lbl">Access</div></div>' +
+          '</div>' +
+          '<div class="features">' +
+            '<div class="feature"><span class="tick">&#10003;</span>Real-time trade alerts</div>' +
+            '<div class="feature"><span class="tick">&#10003;</span>Market breakdowns from experienced traders</div>' +
+            '<div class="feature"><span class="tick">&#10003;</span>Risk management tips included</div>' +
+          '</div>' +
+          '<button class="btn" id="joinBtn">Join FXR Trader</button>' +
+          '<div class="footnote">Tap to open the channel in Telegram</div>' +
+        '</div>';
 
       document.getElementById("joinBtn").addEventListener("click", function () {
         tg.openTelegramLink(CHANNEL);
